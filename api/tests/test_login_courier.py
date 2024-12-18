@@ -1,5 +1,6 @@
 import pytest
 from api.methods.courier_methods import delete_courier, login_courier
+from data import ErrorMessages
 from helpers import register_new_courier_and_return_login_password
 
 
@@ -33,7 +34,7 @@ class TestLoginCourier:
 
         # авторизуемся с недостающими полями
         r_login = login_courier(payload)
-        assert r_login.status_code == 400
+        assert r_login.status_code == 400 and r_login.json()["message"] == ErrorMessages.courier_login_400
         print(r_login.json()["message"])
 
 
@@ -51,5 +52,5 @@ class TestLoginCourier:
         # авторизуемся удаленным курьером
         r_login = login_courier(payload)
         assert r_login.status_code == 404
-        print(r_login.json()["message"])
+        print(r_login.json()["message"]) and r_login.json()["message"] == ErrorMessages.courier_login_404
 

@@ -1,5 +1,6 @@
 import pytest
 from api.methods.courier_methods import create_courier, delete_courier
+from data import ErrorMessages
 from helpers import register_new_courier_and_return_login_password, generate_new_courier_data
 
 
@@ -35,7 +36,7 @@ class TestCreateCourier:
         }
 
         r_create = create_courier(payload)
-        assert r_create.status_code == 409
+        assert r_create.status_code == 409 and r_create.json()["message"] == ErrorMessages.courier_create_409
         print(r_create.json()["message"])
 
         delete_courier(courier[0], courier[1])
@@ -54,5 +55,5 @@ class TestCreateCourier:
 
         # создаем курьера с недостающими полями
         r_create = create_courier(payload)
-        assert r_create.status_code == 400
+        assert r_create.status_code == 400 and r_create.json()["message"] == ErrorMessages.courier_create_400
         print(r_create.json()["message"])

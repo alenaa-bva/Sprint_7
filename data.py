@@ -10,3 +10,9 @@ class Order:
         "comment": "Saske, come back to Konoha",
         "color": []
         }
+
+class ErrorMessages:
+    courier_create_409 = 'Этот логин уже используется. Попробуйте другой.'
+    courier_create_400 = 'Недостаточно данных для создания учетной записи'
+    courier_login_400 = 'Недостаточно данных для входа'
+    courier_login_404 = 'Учетная запись не найдена'
